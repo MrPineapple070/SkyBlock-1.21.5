@@ -1,6 +1,7 @@
 package net.skyblock;
 
 import net.fabricmc.api.ModInitializer;
+import net.skyblock.init.CommandInit;
 import net.skyblock.init.ItemInit;
 import net.skyblock.init.ScreenHandlerInit;
 import org.slf4j.Logger;
@@ -17,5 +18,6 @@ public class SkyBlock implements ModInitializer {
 
         ItemInit.load();
         ScreenHandlerInit.load();
+        CommandInit.load();
     }
 }

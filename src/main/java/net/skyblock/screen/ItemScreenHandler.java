@@ -12,20 +12,20 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
-import net.skyblock.SkyBlock;
 import net.skyblock.init.ScreenHandlerInit;
 import net.skyblock.item.MenuItem;
 import net.skyblock.network.MenuItemPayload;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemScreenHandler extends ScreenHandler {
-    final SimpleInventory inventory = new SimpleInventory(54);
-    final ItemStack stack;
+    private final SimpleInventory inventory = new SimpleInventory(54);
+    private final ItemStack stack;
 
-    public ItemScreenHandler(final int syncId, final PlayerInventory playerInventory, final MenuItemPayload ignored) {
+    public ItemScreenHandler(final int syncId, final @NotNull PlayerInventory playerInventory, final MenuItemPayload ignored) {
         this(syncId, playerInventory);
     }
 
-    public ItemScreenHandler(final int syncId, final PlayerInventory playerInventory) {
+    public ItemScreenHandler(final int syncId, final @NotNull PlayerInventory playerInventory) {
         super(ScreenHandlerInit.ITEM_SCREEN_HANDLER, syncId);
         this.stack = playerInventory.player.getMainHandStack();
         this.loadInventory(playerInventory.player.getRegistryManager());
@@ -86,7 +86,6 @@ public class ItemScreenHandler extends ScreenHandler {
         this.saveInventory(player.getRegistryManager());
     }
 
-
     /**
      * Load the inventory from the given stack. The stack is expected to have
      * custom data containing the inventory in the format written by
@@ -98,7 +97,6 @@ public class ItemScreenHandler extends ScreenHandler {
         this.inventory.clear();
         final NbtComponent nbt = this.stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         Inventories.readNbt(nbt.copyNbt(), this.inventory.getHeldStacks(), registry);
-        this.stack.set(DataComponentTypes.CUSTOM_DATA, nbt);
     }
 
     /**
@@ -109,7 +107,6 @@ public class ItemScreenHandler extends ScreenHandler {
     private void saveInventory(final RegistryWrapper.WrapperLookup registry) {
         final NbtCompound nbt = new NbtCompound();
         Inventories.writeNbt(nbt, this.inventory.getHeldStacks(), registry);
-        SkyBlock.LOGGER.info(nbt.toString());
         this.stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
