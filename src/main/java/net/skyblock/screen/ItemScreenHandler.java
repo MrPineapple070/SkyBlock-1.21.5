@@ -35,15 +35,6 @@ public class ItemScreenHandler extends ScreenHandler {
         this.inventory.onClose(playerInventory.player);
     }
 
-    private void addInventorySlots(final SimpleInventory inventory) {
-        for (int row = 0; row < 6; ++row) {
-            for (int col = 0; col < 9; ++col) {
-                final int index = col + row * 9;
-                this.addSlot(new Slot(inventory, index, 8 + col * 18, 18 + row * 18));
-            }
-        }
-    }
-
     @Override
     public ItemStack quickMove(final PlayerEntity player, final int slotIndex) {
         ItemStack stack = ItemStack.EMPTY;
@@ -95,6 +86,14 @@ public class ItemScreenHandler extends ScreenHandler {
         this.saveInventory(player.getRegistryManager());
     }
 
+
+    /**
+     * Load the inventory from the given stack. The stack is expected to have
+     * custom data containing the inventory in the format written by
+     * {@link #saveInventory(RegistryWrapper.WrapperLookup)}.
+     *
+     * @param registry the registry to use for loading the inventory
+     */
     private void loadInventory(final RegistryWrapper.WrapperLookup registry) {
         this.inventory.clear();
         final NbtComponent nbt = this.stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
@@ -102,10 +101,29 @@ public class ItemScreenHandler extends ScreenHandler {
         this.stack.set(DataComponentTypes.CUSTOM_DATA, nbt);
     }
 
+    /**
+     * Saves the current inventory state to the stack's custom data.
+     *
+     * @param registry the registry to use for saving the inventory
+     */
     private void saveInventory(final RegistryWrapper.WrapperLookup registry) {
         final NbtCompound nbt = new NbtCompound();
         Inventories.writeNbt(nbt, this.inventory.getHeldStacks(), registry);
         SkyBlock.LOGGER.info(nbt.toString());
         this.stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+    }
+
+    /**
+     * Adds the 6x9 {@link SimpleInventory} {@link Slot}s to the screen handler.
+     *
+     * @param inventory the inventory
+     */
+    private void addInventorySlots(final SimpleInventory inventory) {
+        for (int row = 0; row < 6; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                final int index = col + row * 9;
+                this.addSlot(new Slot(inventory, index, 8 + col * 18, 18 + row * 18));
+            }
+        }
     }
 }
