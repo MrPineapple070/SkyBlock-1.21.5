@@ -5,10 +5,10 @@
 	"name": "SkyBlock",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"Mr. Pιηεαρρlξ"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
+		"homepage": "https://wiki.hypixel.net/Introduction",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",

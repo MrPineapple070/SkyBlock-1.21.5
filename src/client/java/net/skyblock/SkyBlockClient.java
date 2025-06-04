@@ -13,6 +13,5 @@ public class SkyBlockClient implements ClientModInitializer {
 
         ScreenHandlerInit.load();
         HandledScreens.register(ScreenHandlerInit.ITEM_SCREEN_HANDLER, ItemScreen::new);
-        HandledScreens.register(ScreenHandlerInit.COMMAND_SCREEN_HANDLER, CommandScreen::new);
     }
 }

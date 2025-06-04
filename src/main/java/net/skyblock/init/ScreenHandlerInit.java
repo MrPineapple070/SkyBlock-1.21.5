@@ -16,7 +16,7 @@ import net.skyblock.screen.ItemScreenHandler;
 public class ScreenHandlerInit {
     public static final ScreenHandlerType<ItemScreenHandler> ITEM_SCREEN_HANDLER = register("item_screen", ItemScreenHandler::new, MenuItemPayload.PACKET_CODEC);
 
-    private static <T extends ScreenHandler, D extends CustomPayload> ExtendedScreenHandlerType<T, D> register(final String name, final ExtendedScreenHandlerType.ExtendedFactory<T, D> factory, final PacketCodec<? super RegistryByteBuf, D> codec) {
+    private static <Handler extends ScreenHandler, Payload extends CustomPayload> ExtendedScreenHandlerType<Handler, Payload> register(final String name, final ExtendedScreenHandlerType.ExtendedFactory<Handler, Payload> factory, final PacketCodec<? super RegistryByteBuf, Payload> codec) {
         final Identifier id = Identifier.of(SkyBlock.MOD_ID, name);
         SkyBlock.LOGGER.info("Registering screen handler: {}", id);
         return Registry.register(Registries.SCREEN_HANDLER, id, new ExtendedScreenHandlerType<>(factory, codec));
