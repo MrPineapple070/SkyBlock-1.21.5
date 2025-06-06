@@ -1,0 +1,50 @@
+{
+    "type": "skyblock:count_shaped",
+    "pattern": [
+        " # ",
+        "###",
+        " # "
+    ],
+    "input": [
+        {
+            "id": "minecraft:cobblestone",
+            "count": 0
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 0
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 0
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        },
+        {
+            "id": "minecraft:cobblestone",
+            "count": 0
+        }
+    ],
+    "output": {
+        "id": "skyblock:enchanted_cobblestone",
+        "count": 1
+    }
+}
