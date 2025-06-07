@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "skyblock:item/enchanted_red_sand_cube"
+    }
+}
