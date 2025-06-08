@@ -1,47 +1,15 @@
 {
     "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:cobblestone",
+            "count": 32
+        }
+    },
     "pattern": [
         " # ",
         "###",
         " # "
-    ],
-    "input": [
-        {
-            "id": "minecraft:cobblestone",
-            "count": 0
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 32
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 0
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 32
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 32
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 32
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 0
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 32
-        },
-        {
-            "id": "minecraft:cobblestone",
-            "count": 0
-        }
     ],
     "output": {
         "id": "skyblock:enchanted_cobblestone",
