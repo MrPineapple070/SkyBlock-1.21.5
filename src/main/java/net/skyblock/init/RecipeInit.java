@@ -12,7 +12,6 @@ import net.skyblock.recipe.CountShapedRecipe;
 
 public class RecipeInit {
     public static final RecipeSerializer<CountShapedRecipe> COUNT_SHAPED_RECIPE_SERIALIZER = register("count_shaped", new CountShapedRecipe.Serializer());
-    public static final RecipeType<CountShapedRecipe> COUNT_SHAPED_RECIPE_TYPE = register("count_shaped");
 
     private static <R extends Recipe<CraftingRecipeInput>> RecipeSerializer<R> register(final String name, final RecipeSerializer<R> serializer) {
         final Identifier id = Identifier.of(SkyBlock.MOD_ID, name);
