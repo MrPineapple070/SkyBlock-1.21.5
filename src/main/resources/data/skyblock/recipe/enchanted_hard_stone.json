@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:hard_stone",
+            "count": 32
+        }
+    },
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_hard_stone",
+        "count": 1
+    }
+}

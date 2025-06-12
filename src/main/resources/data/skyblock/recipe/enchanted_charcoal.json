@@ -1,0 +1,22 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:oak_log",
+            "count": 32
+        },
+        "$": {
+            "id": "minecraft:charcoal",
+            "count": 32
+        }
+    },
+    "pattern": [
+        " $ ",
+        "$#$",
+        " $ "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_charcoal",
+        "count": 1
+    }
+}

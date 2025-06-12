@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:ink_sac",
+            "count": 16
+        }
+    },
+    "pattern": [
+        " # ",
+        "###",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_ink_sac",
+        "count": 1
+    }
+}

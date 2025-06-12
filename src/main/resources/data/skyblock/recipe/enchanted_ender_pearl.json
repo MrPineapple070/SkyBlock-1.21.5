@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:ender_pearl",
+            "count": 4
+        }
+    },
+    "pattern": [
+        " # ",
+        "###",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_ender_pearl",
+        "count": 1
+    }
+}

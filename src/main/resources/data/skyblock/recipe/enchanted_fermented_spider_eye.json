@@ -1,0 +1,26 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "M": {
+            "id": "minecraft:brown_mushroom",
+            "count": 64
+        },
+        "S": {
+            "id": "minecraft:sugar",
+            "count": 64
+        },
+        "#": {
+            "id": "skyblock:enchanted_spider_eye",
+            "count": 32
+        }
+    },
+    "pattern": [
+        "M",
+        "S",
+        "#"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_fermented_spider_eye",
+        "count": 1
+    }
+}

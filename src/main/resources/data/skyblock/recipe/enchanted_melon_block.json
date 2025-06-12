@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_melon",
+            "count": 32
+        }
+    },
+    "pattern": [
+        " # ",
+        "###",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_melon_block",
+        "count": 1
+    }
+}

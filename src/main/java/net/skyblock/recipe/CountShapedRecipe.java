@@ -11,8 +11,6 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.IngredientPlacement;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.book.RecipeBookCategories;
-import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
@@ -28,7 +26,7 @@ public class CountShapedRecipe implements CraftingRecipe {
     public static class Serializer implements RecipeSerializer<CountShapedRecipe> {
         public static final MapCodec<CountShapedRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
-                CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(r -> r.category),
+                CraftingRecipeCategory.CODEC.optionalFieldOf("category", CraftingRecipeCategory.MISC).forGetter(r -> r.category),
                 RawShapedRecipe.CODEC.forGetter(r -> r.raw),
                 ItemStack.MAP_CODEC.fieldOf("output").forGetter(r -> r.output)
         ).apply(instance, CountShapedRecipe::new));
@@ -36,7 +34,7 @@ public class CountShapedRecipe implements CraftingRecipe {
         public static final PacketCodec<RegistryByteBuf, CountShapedRecipe> PACKET_CODEC = PacketCodec.ofStatic(Serializer::write, Serializer::read);
 
         @Contract("_ -> new")
-        private static @NotNull CountShapedRecipe read(@NotNull RegistryByteBuf buf) {
+        private static @NotNull CountShapedRecipe read(final @NotNull RegistryByteBuf buf) {
             final String group = buf.readString();
             final CraftingRecipeCategory category = buf.readEnumConstant(CraftingRecipeCategory.class);
             final RawShapedRecipe input = RawShapedRecipe.PACKET_CODEC.decode(buf);
@@ -45,10 +43,10 @@ public class CountShapedRecipe implements CraftingRecipe {
             return new CountShapedRecipe(group, category, input, output);
         }
 
-        private static void write(@NotNull RegistryByteBuf buf, @NotNull CountShapedRecipe recipe) {
+        private static void write(final @NotNull RegistryByteBuf buf, final @NotNull CountShapedRecipe recipe) {
             buf.writeString(recipe.group);
+            CraftingRecipeCategory.PACKET_CODEC.encode(buf, recipe.category);
             RawShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
         }
 
@@ -67,25 +65,28 @@ public class CountShapedRecipe implements CraftingRecipe {
     private final CraftingRecipeCategory category;
     private final RawShapedRecipe raw;
     private final ItemStack output;
+    private final IngredientPlacement placement;
 
-    public CountShapedRecipe(final @NotNull String group, final @NotNull CraftingRecipeCategory category, final @NotNull RawShapedRecipe raw, final @NotNull ItemStack output) {
+    public CountShapedRecipe(String group, CraftingRecipeCategory category, RawShapedRecipe raw, ItemStack output) {
         this.group = group;
         this.category = category;
         this.raw = raw;
         this.output = output;
+        final List<Optional<Ingredient>> list = this.raw.ingredients().stream()
+                .filter(stack -> !stack.isEmpty())
+                .map(stack -> Optional.of(Ingredient.ofItem(stack.getItem())))
+                .toList();
+        this.placement = IngredientPlacement.forMultipleSlots(list);
     }
 
+
     @Override
-    public boolean matches(final CraftingRecipeInput input, final World world) {
+    public boolean matches(final CraftingRecipeInput input, final @NotNull World world) {
         if (world.isClient) return false;
         if (this.raw.size() > input.size()) return false;
 
-        final Optional<RawShapedRecipe.Data> optional = this.raw.data();
-        if (optional.isEmpty()) return false;
-
-        final RawShapedRecipe.Data data = optional.get();
-        for (int slot = 0; slot < this.raw.ingredients().size(); ++slot) {
-            final ItemStack required = data.getRequired(slot);
+        for (int slot = 0; slot < this.raw.size(); ++slot) {
+            final ItemStack required = this.raw.getRequired(slot);
             final ItemStack actual = input.getStackInSlot(slot);
             if (!ItemStack.areItemsEqual(actual, required)) return false;
             if (actual.getCount() < required.getCount()) return false;
@@ -99,9 +100,8 @@ public class CountShapedRecipe implements CraftingRecipe {
         final DefaultedList<ItemStack> remainders = CraftingRecipe.super.getRecipeRemainders(input);
 
         for (int slot = 0; slot < input.size(); ++slot) {
-            final ItemStack required = this.raw.ingredients().get(slot);
+            final ItemStack required = this.raw.getRequired(slot);
             final ItemStack actual = input.getStackInSlot(slot);
-            if (actual.isEmpty()) continue;
             if (!ItemStack.areItemsEqual(actual, required)) continue;
             actual.decrement(required.getCount() - 1);
         }
@@ -126,15 +126,6 @@ public class CountShapedRecipe implements CraftingRecipe {
 
     @Override
     public IngredientPlacement getIngredientPlacement() {
-        final List<Optional<Ingredient>> list = this.raw.ingredients().stream()
-                .filter(stack -> !stack.isEmpty())
-                .map(stack -> Optional.of(Ingredient.ofItem(stack.getItem())))
-                .toList();
-        return IngredientPlacement.forMultipleSlots(list);
-    }
-
-    @Override
-    public RecipeBookCategory getRecipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
+        return this.placement;
     }
 }

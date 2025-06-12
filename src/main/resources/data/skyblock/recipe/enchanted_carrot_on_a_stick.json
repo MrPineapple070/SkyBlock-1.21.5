@@ -1,0 +1,22 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_carrot",
+            "count": 32
+        },
+        "X": {
+            "id": "minecraft:stick",
+            "count": 1
+        }
+    },
+    "pattern": [
+        "  X",
+        " X#",
+        "X #"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_carrot_on_a_stick",
+        "count": 1
+    }
+}

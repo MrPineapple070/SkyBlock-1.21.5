@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:mithril",
+            "count": 32
+        }
+    },
+    "pattern": [
+        " # ",
+        "###",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_mithril",
+        "count": 1
+    }
+}

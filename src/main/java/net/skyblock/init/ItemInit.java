@@ -89,6 +89,7 @@ public class ItemInit {
     public static final Item ENCHANTED_ENDSTONE = register("enchanted_endstone", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_FEATHER = register("enchanted_feather", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_FERMENTED_SPIDER_EYE = register("enchanted_fermented_spider_eye", EnchantedItem::new, SETTINGS_64);
+    public static final Item ENCHANTED_FIG_LOG = register("enchanted_fig_log", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_FIREWORK_ROCKET = register("enchanted_firework_rocket", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_FLINT = register("enchanted_flint", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_GHAST_TEAR = register("enchanted_ghast_tear", EnchantedItem::new, SETTINGS_64);
@@ -100,7 +101,7 @@ public class ItemInit {
     public static final Item ENCHANTED_GOLDEN_CARROT = register("enchanted_golden_carrot", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_GOLD_BLOCK = register("enchanted_gold_block", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_GRIFFIN_FEATHER = register("enchanted_griffin_feather", EnchantedItem::new, SETTINGS_64);
-    public static final Item ENCHANTED_GRILLED_PORK = register("enchanted_grilled_pork", EnchantedItem::new, SETTINGS_64);
+    public static final Item ENCHANTED_COOKED_PORKCHOP = register("enchanted_cooked_porkchop", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_GUNPOWDER = register("enchanted_gunpowder", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_HARD_STONE = register("enchanted_hard_stone", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_HAY_BALE = register("enchanted_hay_bale", EnchantedItem::new, SETTINGS_64);
@@ -108,13 +109,13 @@ public class ItemInit {
     public static final Item ENCHANTED_RED_MUSHROOM_BLOCK = register("enchanted_red_mushroom_block", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_BROWN_MUSHROOM_BLOCK = register("enchanted_brown_mushroom_block", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_ICE = register("enchanted_ice", EnchantedItem::new, SETTINGS_64);
-    public static final Item ENCHANTED_INK_SACK = register("enchanted_ink_sack", EnchantedItem::new, SETTINGS_64);
+    public static final Item ENCHANTED_INK_SAC = register("enchanted_ink_sac", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_IRON = register("enchanted_iron", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_IRON_BLOCK = register("enchanted_iron_block", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_JACK_O_LANTERN = register("enchanted_jack_o_lantern", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_JUNGLE_LOG = register("enchanted_jungle_log", EnchantedItem::new, SETTINGS_64);
-    public static final Item ENCHANTED_LAPIS_LAZULI = register("enchanted_lapis_lazuli", EnchantedItem::new, SETTINGS_64);
-    public static final Item ENCHANTED_LAPIS_LAZULI_BLOCK = register("enchanted_lapis_lazuli_block", EnchantedItem::new, SETTINGS_64);
+    public static final Item ENCHANTED_LAPIS = register("enchanted_lapis", EnchantedItem::new, SETTINGS_64);
+    public static final Item ENCHANTED_LAPIS_BLOCK = register("enchanted_lapis_block", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_LAVA_BUCKET = register("enchanted_lava_bucket", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_LEATHER = register("enchanted_leather", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_LUSH_BERBERIS = register("enchanted_lush_berberis", EnchantedItem::new, SETTINGS_64);
@@ -248,7 +249,7 @@ public class ItemInit {
             entries.add(ENCHANTED_WOOL);
             entries.add(ENCHANTED_NETHER_WART);
             entries.add(ENCHANTED_PORKCHOP);
-            entries.add(ENCHANTED_GRILLED_PORK);
+            entries.add(ENCHANTED_COOKED_PORKCHOP);
             entries.add(ENCHANTED_POTATO);
             entries.add(ENCHANTED_POISONOUS_POTATO);
             entries.add(ENCHANTED_BAKED_POTATO);
@@ -293,8 +294,8 @@ public class ItemInit {
             entries.add(ENCHANTED_HARD_STONE);
             entries.add(ENCHANTED_ICE);
             entries.add(ENCHANTED_PACKED_ICE);
-            entries.add(ENCHANTED_LAPIS_LAZULI);
-            entries.add(ENCHANTED_LAPIS_LAZULI_BLOCK);
+            entries.add(ENCHANTED_LAPIS);
+            entries.add(ENCHANTED_LAPIS_BLOCK);
             entries.add(ENCHANTED_IRON);
             entries.add(ENCHANTED_IRON_BLOCK);
             entries.add(ENCHANTED_HOPPER);
@@ -345,7 +346,7 @@ public class ItemInit {
         ItemGroupEvents.modifyEntriesEvent(FISHING_GROUP_KEY).register(entries -> {
             entries.add(ENCHANTED_CLAY_BALL);
             entries.add(ENCHANTED_CLAY_BLOCK);
-            entries.add(ENCHANTED_INK_SACK);
+            entries.add(ENCHANTED_INK_SAC);
             entries.add(ENCHANTED_PRISMARINE_CRYSTALS);
             entries.add(ENCHANTED_PRISMARINE_SHARD);
             entries.add(ENCHANTED_SALMON);
@@ -363,6 +364,7 @@ public class ItemInit {
 
         });
         ItemGroupEvents.modifyEntriesEvent(RIFT_GROUP_KEY).register(entries -> {
+            entries.add(ENCHANTED_FIG_LOG);
             entries.add(ENCHANTED_VAMPIRIC_MELON);
         });
     }

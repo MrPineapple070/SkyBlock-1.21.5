@@ -1,0 +1,22 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "E": {
+            "id": "skyblock:enchanted_ender_pearl",
+            "count": 16
+        },
+        "#": {
+            "id": "minecraft:blaze_powder",
+            "count": 16
+        }
+    },
+    "pattern": [
+        " # ",
+        "#E#",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_eye_of_ender",
+        "count": 1
+    }
+}

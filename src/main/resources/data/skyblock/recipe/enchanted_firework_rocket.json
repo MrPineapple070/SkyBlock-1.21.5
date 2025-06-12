@@ -1,0 +1,22 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_gunpowder",
+            "count": 16
+        },
+        "P": {
+            "id": "minecraft:paper",
+            "count": 16
+        }
+    },
+    "pattern": [
+        " # ",
+        "#P#",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_firework_rocket",
+        "count": 1
+    }
+}

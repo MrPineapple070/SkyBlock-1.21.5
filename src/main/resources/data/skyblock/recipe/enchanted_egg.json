@@ -1,0 +1,18 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:egg",
+            "count": 16
+        }
+    },
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_egg",
+        "count": 1
+    }
+}

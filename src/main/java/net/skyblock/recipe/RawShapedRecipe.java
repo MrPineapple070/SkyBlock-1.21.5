@@ -19,8 +19,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-public record RawShapedRecipe(int width, int height, List<ItemStack> ingredients, Optional<Data> data) {
-    public record Data(Map<Character, ItemStack> key, List<String> pattern) {
+public record RawShapedRecipe(int width, int height, @NotNull List<ItemStack> ingredients,
+                              @NotNull Optional<Data> data) {
+    public record Data(@NotNull Map<Character, ItemStack> key, @NotNull List<String> pattern) {
         private static final Codec<List<String>> PATTERN_CODEC = Codec.STRING.listOf().comapFlatMap(pattern -> {
             if (pattern.size() > 3) {
                 return DataResult.error(() -> "Invalid pattern: too many rows, 3 is maximum");
@@ -49,50 +50,32 @@ public record RawShapedRecipe(int width, int height, List<ItemStack> ingredients
             return DataResult.success(keyEntry.charAt(0));
         }, String::valueOf);
 
-        public static final MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codecs.strictUnboundedMap(KEY_ENTRY_CODEC, ItemStack.CODEC)
-                        .fieldOf("key")
-                        .forGetter(data -> data.key),
-                PATTERN_CODEC
-                        .fieldOf("pattern")
-                        .forGetter(data -> data.pattern)
-        ).apply(instance, Data::new));
+        public static final MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codecs.strictUnboundedMap(KEY_ENTRY_CODEC, ItemStack.CODEC).fieldOf("key").forGetter(data -> data.key), PATTERN_CODEC.fieldOf("pattern").forGetter(data -> data.pattern)).apply(instance, Data::new));
 
-        public ItemStack getRequired(final int slot) {
-            final int x = slot % this.pattern.getFirst().length();
-            final int y = slot / this.pattern.size();
-            final char symbol = this.pattern.get(y).charAt(x);
-            return this.key.getOrDefault(symbol, ItemStack.EMPTY);
+        public @NotNull ItemStack getRequired(final int slot) {
+            final char[] symbols = String.join("", this.pattern).toCharArray();
+            return this.key.getOrDefault(symbols[slot], ItemStack.EMPTY);
         }
     }
 
-    public static final MapCodec<RawShapedRecipe> CODEC = Data.CODEC.flatXmap(RawShapedRecipe::fromData,
-            recipe -> recipe.data
-                    .map(DataResult::success)
-                    .orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe"))
-    );
+    public static final MapCodec<RawShapedRecipe> CODEC = Data.CODEC.flatXmap(RawShapedRecipe::fromData, recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
 
-    public static final PacketCodec<RegistryByteBuf, RawShapedRecipe> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.VAR_INT, recipe -> recipe.width,
-            PacketCodecs.VAR_INT, recipe -> recipe.height,
-            ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), recipe -> recipe.ingredients, RawShapedRecipe::create
-    );
+    public static final PacketCodec<RegistryByteBuf, RawShapedRecipe> PACKET_CODEC = PacketCodec.tuple(PacketCodecs.VAR_INT, recipe -> recipe.width, PacketCodecs.VAR_INT, recipe -> recipe.height, ItemStack.PACKET_CODEC.collect(PacketCodecs.toList()), recipe -> recipe.ingredients, RawShapedRecipe::create);
 
     @Contract("_, _, _ -> new")
     private static @NotNull RawShapedRecipe create(final int width, final int height, final @NotNull List<ItemStack> itemStacks) {
         return new RawShapedRecipe(width, height, itemStacks, Optional.empty());
     }
 
-    private static DataResult<RawShapedRecipe> fromData(@NotNull Data data) {
+    private static DataResult<RawShapedRecipe> fromData(final @NotNull Data data) {
         final String[] strings = RawShapedRecipe.removePadding(data.pattern);
-        int height = strings.length;
-        int width = strings[0].length();
-        List<ItemStack> list = new ArrayList<>(width * height);
-        CharArraySet charSet = new CharArraySet(data.key.keySet());
+        final int height = strings.length;
+        final int width = strings[0].length();
+        final List<ItemStack> list = new ArrayList<>(width * height);
+        final CharArraySet charSet = new CharArraySet(data.key.keySet());
         for (final String string : strings) {
-            for (int k = 0; k < string.length(); ++k) {
+            for (final char c : string.toCharArray()) {
                 ItemStack entry;
-                char c = string.charAt(k);
                 if (c == ' ') {
                     entry = ItemStack.EMPTY;
                 } else {
@@ -106,42 +89,66 @@ public record RawShapedRecipe(int width, int height, List<ItemStack> ingredients
                 list.add(entry);
             }
         }
-        if (!charSet.isEmpty()) {
+
+        if (!charSet.isEmpty())
             return DataResult.error(() -> "Key defines symbols that aren't used in pattern: " + charSet);
-        }
+
         return DataResult.success(new RawShapedRecipe(width, height, list, Optional.of(data)));
     }
 
     private static String @NotNull [] removePadding(final @NotNull List<String> pattern) {
-        int i = Integer.MAX_VALUE;
-        int j = 0;
-        int k = 0;
-        int l = 0;
-        for (int m = 0; m < pattern.size(); ++m) {
-            final String line = pattern.get(m);
-            i = Math.min(i, Math.clamp(line.indexOf(0x20), 0, line.length() - 1));
-            int n = Math.clamp(line.lastIndexOf(0x20), 0, line.length() - 1);
-            j = Math.max(j, n);
-            if (n < 0) {
-                if (k == m) {
-                    ++k;
+        int firstSymbolIndex = Integer.MAX_VALUE;
+        int lastSymbolIndex = 0;
+        int emptyLinesAtStart = 0;
+        int emptyLinesAtEnd = 0;
+
+        for (int lineNumber = 0; lineNumber < pattern.size(); ++lineNumber) {
+            final String line = pattern.get(lineNumber);
+            firstSymbolIndex = Math.min(firstSymbolIndex, findFirstSymbol(line));
+            int lastSymbolIndexInLine = findLastSymbol(line);
+            lastSymbolIndex = Math.max(lastSymbolIndex, lastSymbolIndexInLine);
+            if (lastSymbolIndexInLine < 0) {
+                if (emptyLinesAtStart == lineNumber) {
+                    ++emptyLinesAtStart;
                 }
-                ++l;
+                ++emptyLinesAtEnd;
                 continue;
             }
-            l = 0;
+            emptyLinesAtEnd = 0;
         }
-        if (pattern.size() == l) {
+
+        if (pattern.size() == emptyLinesAtEnd) {
             return new String[0];
         }
-        String[] strings = new String[pattern.size() - l - k];
-        for (int o = 0; o < strings.length; ++o) {
-            strings[o] = pattern.get(o + k).substring(i, j + 1);
+
+        int finalFirstSymbolIndex = firstSymbolIndex;
+        int finalLastSymbolIndex = lastSymbolIndex;
+        return pattern.stream()
+                .skip(emptyLinesAtStart)
+                .limit(pattern.size() - emptyLinesAtEnd - emptyLinesAtStart)
+                .map(line -> line.substring(finalFirstSymbolIndex, finalLastSymbolIndex + 1))
+                .toArray(String[]::new);
+    }
+
+    private static int findFirstSymbol(String line) {
+        int i;
+        for (i = 0; i < line.length() && line.charAt(i) == ' '; ++i) {
         }
-        return strings;
+        return i;
+    }
+
+    private static int findLastSymbol(String line) {
+        int i;
+        for (i = line.length() - 1; i >= 0 && line.charAt(i) == ' '; --i) {
+        }
+        return i;
     }
 
     public int size() {
         return this.width * this.height;
+    }
+
+    public ItemStack getRequired(final int slot) {
+        return this.data.map(data -> data.getRequired(slot)).orElse(ItemStack.EMPTY);
     }
 }

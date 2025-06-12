@@ -1,0 +1,45 @@
+{
+    "type": "skyblock:count_shapeless",
+    "ingredients": [
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        },
+        {
+            "id": "minecraft:poppy",
+            "count": 64
+        }
+    ],
+    "output": {
+        "id": "skyblock:enchanted_poppy",
+        "count": 1
+    }
+}

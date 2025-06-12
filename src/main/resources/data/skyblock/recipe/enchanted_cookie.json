@@ -1,0 +1,22 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_cocoa",
+            "count": 32
+        },
+        "W": {
+            "id": "minecraft:wheat",
+            "count": 32
+        }
+    },
+    "pattern": [
+        " # ",
+        "#W#",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_cookie",
+        "count": 1
+    }
+}

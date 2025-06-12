@@ -1,0 +1,45 @@
+{
+    "type": "skyblock:count_shapeless",
+    "ingredients": [
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        },
+        {
+            "id": "minecraft:brown_mushroom_block",
+            "count": 64
+        }
+    ],
+    "output": {
+        "id": "skyblock:enchanted_brown_mushroom",
+        "count": 1
+    }
+}

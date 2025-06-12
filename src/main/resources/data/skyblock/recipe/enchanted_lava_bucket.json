@@ -1,0 +1,21 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_iron",
+            "count": 1
+        },
+        "T": {
+            "id": "skyblock:enchanted_coal_block",
+            "count": 2
+        }
+    },
+    "pattern": [
+        "#T#",
+        " # "
+    ],
+    "output": {
+        "id": "skyblock:enchanted_lava_bucket",
+        "count": 1
+    }
+}

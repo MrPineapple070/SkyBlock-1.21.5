@@ -1,0 +1,17 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "minecraft:wheat",
+            "count": 10
+        }
+    },
+    "pattern": [
+        "###",
+        "###"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_bread",
+        "count": 1
+    }
+}
