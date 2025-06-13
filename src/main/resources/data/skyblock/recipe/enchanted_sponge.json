@@ -2,8 +2,8 @@
     "type": "skyblock:count_shaped",
     "key": {
         "#": {
-            "id": "skyblock:mithril_ore",
-            "count": 32
+            "id": "minecraft:sponge",
+            "count": 8
         }
     },
     "pattern": [
@@ -12,7 +12,7 @@
         " # "
     ],
     "output": {
-        "id": "skyblock:enchanted_mithril",
+        "id": "skyblock:enchanted_sponge",
         "count": 1
     }
 }

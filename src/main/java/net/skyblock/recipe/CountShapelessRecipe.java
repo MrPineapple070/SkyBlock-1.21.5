@@ -65,16 +65,6 @@ public class CountShapelessRecipe implements CraftingRecipe {
         }
     }
 
-    public static class ItemStackComparator implements Comparator<ItemStack> {
-        public static final ItemStackComparator INSTANCE = new ItemStackComparator();
-
-        @Override
-        public int compare(final @NotNull ItemStack itemStack, final @NotNull ItemStack itemStack1) {
-            final int name = itemStack.getItemName().getString().compareTo(itemStack1.getItemName().getString());
-            return name != 0 ? name : Integer.compare(itemStack.getCount(), itemStack1.getCount());
-        }
-    }
-
     private final String group;
     private final CraftingRecipeCategory category;
     private final List<ItemStack> ingredients;

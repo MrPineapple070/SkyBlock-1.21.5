@@ -2,7 +2,7 @@
     "type": "skyblock:count_shaped",
     "key": {
         "#": {
-            "id": "skyblock:mithril_ore",
+            "id": "minecraft:rabbit_foot",
             "count": 32
         }
     },
@@ -12,7 +12,7 @@
         " # "
     ],
     "output": {
-        "id": "skyblock:enchanted_mithril",
+        "id": "skyblock:enchanted_rabbit_foot",
         "count": 1
     }
 }

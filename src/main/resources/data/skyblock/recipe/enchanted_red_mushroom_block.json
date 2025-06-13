@@ -1,0 +1,17 @@
+{
+    "type": "skyblock:count_shaped",
+    "key": {
+        "#": {
+            "id": "skyblock:enchanted_red_mushroom",
+            "count": 8
+        }
+    },
+    "pattern": [
+        "##",
+        "##"
+    ],
+    "output": {
+        "id": "skyblock:enchanted_red_mushroom_block",
+        "count": 1
+    }
+}

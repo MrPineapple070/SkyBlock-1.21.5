@@ -2,7 +2,7 @@
     "type": "skyblock:count_shaped",
     "key": {
         "#": {
-            "id": "skyblock:mithril_ore",
+            "id": "minecraft:wheat_seeds",
             "count": 32
         }
     },
@@ -12,7 +12,7 @@
         " # "
     ],
     "output": {
-        "id": "skyblock:enchanted_mithril",
+        "id": "skyblock:enchanted_seeds",
         "count": 1
     }
 }

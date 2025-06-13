@@ -45,6 +45,17 @@ public class ItemInit {
     private static final Item.Settings SETTINGS_64 = new Item.Settings().fireproof().maxCount(64);
 
     public static final Item MENU_ITEM = register("menu_item", MenuItem::new, SETTINGS_01);
+    public static final Item ANCIENT_CLAW = register("ancient_claw", Item::new, SETTINGS_64);
+    public static final Item FIG_LOG = register("fig_log", Item::new, SETTINGS_64);
+    public static final Item GLACITE = register("glacite", Item::new, SETTINGS_64);
+    public static final Item HARD_STONE = register("hard_stone", Item::new, SETTINGS_64);
+    public static final Item LUSH_BERBERIS = register("lush_berberis", Item::new, SETTINGS_64);
+    public static final Item MITHRIL_ORE = register("mithril_ore", Item::new, SETTINGS_64);
+    public static final Item SHARK_FIN = register("shark_fin", Item::new, SETTINGS_64);
+    public static final Item SULPHUR = register("sulphur", Item::new, SETTINGS_64);
+    public static final Item TITANIUM = register("titanium_ore", Item::new, SETTINGS_64);
+    public static final Item TUNGSTEN = register("tungsten", Item::new, SETTINGS_64);
+    public static final Item UMBER = register("umber", Item::new, SETTINGS_64);
     public static final Item ENCHANTED_ACACIA_LOG = register("enchanted_acacia_log", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_ANCIENT_CLAW = register("enchanted_ancient_claw", EnchantedItem::new, SETTINGS_64);
     public static final Item ENCHANTED_BAKED_POTATO = register("enchanted_baked_potato", EnchantedItem::new, SETTINGS_64);

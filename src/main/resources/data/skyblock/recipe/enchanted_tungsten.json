@@ -2,7 +2,7 @@
     "type": "skyblock:count_shaped",
     "key": {
         "#": {
-            "id": "skyblock:mithril_ore",
+            "id": "skyblock:tungsten",
             "count": 32
         }
     },
@@ -12,7 +12,7 @@
         " # "
     ],
     "output": {
-        "id": "skyblock:enchanted_mithril",
+        "id": "skyblock:enchanted_tungsten",
         "count": 1
     }
 }

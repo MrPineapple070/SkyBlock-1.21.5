@@ -1,0 +1,45 @@
+{
+    "type": "skyblock:count_shapeless",
+    "ingredients": [
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        },
+        {
+            "id": "minecraft:rabbit_hide",
+            "count": 64
+        }
+    ],
+    "output": {
+        "id": "skyblock:enchanted_rabbit_hide",
+        "count": 1
+    }
+}
