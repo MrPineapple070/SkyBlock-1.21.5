@@ -1,0 +1,38 @@
+{
+    "anvil_cost": 1,
+    "description": {
+        "translate": "enchantment.skyblock.thunderlord"
+    },
+    "effects": {
+        "minecraft:post_attack": [
+            {
+                "affected": "victim",
+                "enchanted": "attacker",
+                "effect": {
+                    "type": "skyblock:thunderlord",
+                    "level": {
+                        "type": "minecraft:linear",
+                        "base": 0.08,
+                        "per_level_above_first": 0.08
+                    }
+                }
+            }
+        ]
+    },
+    "exclusive_set": "skyblock:thunderbolt",
+    "max_cost": {
+        "base": 9,
+        "per_level_above_first": 5
+    },
+    "max_level": 5,
+    "min_cost": {
+        "base": 9,
+        "per_level_above_first": 5
+    },
+    "primary_items": "#minecraft:enchantable/sword",
+    "slots": [
+        "mainhand"
+    ],
+    "supported_items": "#minecraft:enchantable/sharp_weapon",
+    "weight": 10
+}
