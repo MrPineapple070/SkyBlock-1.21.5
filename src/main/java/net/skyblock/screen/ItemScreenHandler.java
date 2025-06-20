@@ -12,13 +12,19 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.util.ErrorReporter;
+import net.skyblock.SkyBlock;
 import net.skyblock.init.ScreenHandlerInit;
 import net.skyblock.item.MenuItem;
 import net.skyblock.network.MenuItemPayload;
 import org.jetbrains.annotations.NotNull;
 
 public class ItemScreenHandler extends ScreenHandler {
-    private final SimpleInventory inventory = new SimpleInventory(54);
+    private static final ErrorReporter reporter = new ErrorReporter.Logging(SkyBlock.LOGGER);
+
+    private final SimpleInventory inventory;
     private final ItemStack stack;
 
     public ItemScreenHandler(final int syncId, final @NotNull PlayerInventory playerInventory, final MenuItemPayload ignored) {
@@ -27,6 +33,7 @@ public class ItemScreenHandler extends ScreenHandler {
 
     public ItemScreenHandler(final int syncId, final @NotNull PlayerInventory playerInventory) {
         super(ScreenHandlerInit.ITEM_SCREEN_HANDLER, syncId);
+        this.inventory = new SimpleInventory(54);
         this.stack = playerInventory.player.getMainHandStack();
         this.loadInventory(playerInventory.player.getRegistryManager());
         this.addInventorySlots(this.inventory);
@@ -71,10 +78,7 @@ public class ItemScreenHandler extends ScreenHandler {
     public void onSlotClick(final int slotId, final int clickData, final SlotActionType actionType, final PlayerEntity playerEntity) {
         if (slotId >= 0) { // slotId < 0 are used for networking internals
             final ItemStack stack = this.getSlot(slotId).getStack();
-
-            if (stack.getItem() instanceof MenuItem) {
-                return;
-            }
+            if (stack.getItem() instanceof MenuItem) return;
         }
 
         super.onSlotClick(slotId, clickData, actionType, playerEntity);
@@ -96,7 +100,8 @@ public class ItemScreenHandler extends ScreenHandler {
     private void loadInventory(final RegistryWrapper.WrapperLookup registry) {
         this.inventory.clear();
         final NbtComponent nbt = this.stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        Inventories.readNbt(nbt.copyNbt(), this.inventory.getHeldStacks(), registry);
+        final NbtCompound tag = nbt.copyNbt();
+        Inventories.readData(NbtReadView.create(reporter, registry, tag), this.inventory.getHeldStacks());
     }
 
     /**
@@ -105,9 +110,9 @@ public class ItemScreenHandler extends ScreenHandler {
      * @param registry the registry to use for saving the inventory
      */
     private void saveInventory(final RegistryWrapper.WrapperLookup registry) {
-        final NbtCompound nbt = new NbtCompound();
-        Inventories.writeNbt(nbt, this.inventory.getHeldStacks(), registry);
-        this.stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+        final NbtWriteView writer = NbtWriteView.create(reporter, registry);
+        Inventories.writeData(writer, this.inventory.getHeldStacks());
+        this.stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(writer.getNbt()));
     }
 
     /**

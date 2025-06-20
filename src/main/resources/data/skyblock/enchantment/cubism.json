@@ -1,0 +1,42 @@
+{
+    "anvil_cost": 1,
+    "description": {
+        "translate": "enchantment.skyblock.cubism"
+    },
+    "supported_items": "#minecraft:enchantable/sharp_weapon",
+    "primary_items": "#minecraft:enchantable/sword",
+    "slots": [
+        "mainhand"
+    ],
+    "weight": 10,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_level": 5,
+    "effects": {
+        "minecraft:damage": [
+            {
+                "effect": {
+                    "type": "minecraft:add",
+                    "value": {
+                        "type": "minecraft:linear",
+                        "base": 1.0,
+                        "per_level_above_first": 0.5
+                    }
+                },
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "type": "#skyblock:sensitive_to_cubism"
+                    }
+                }
+            }
+        ]
+    }
+}

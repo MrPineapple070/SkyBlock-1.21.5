@@ -1,0 +1,37 @@
+{
+    "anvil_cost": 1,
+    "description": {
+        "translate": "enchantment.skyblock.soul_eater"
+    },
+    "supported_items": "#minecraft:enchantable/sword",
+    "primary_items": "#minecraft:enchantable/sword",
+    "slots": [
+        "mainhand"
+    ],
+    "weight": 10,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_level": 10,
+    "effects": {
+        "minecraft:post_attack": [
+            {
+                "enchanted": "attacker",
+                "affected": "victim",
+                "effect": {
+                    "type": "skyblock:swarm",
+                    "level": {
+                        "type": "minecraft:linear",
+                        "base": 0.5,
+                        "per_level_above_first": 0.5
+                    }
+                }
+            }
+        ]
+    }
+}

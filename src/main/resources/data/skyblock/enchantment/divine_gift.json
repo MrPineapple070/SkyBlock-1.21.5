@@ -1,0 +1,37 @@
+{
+    "anvil_cost": 1,
+    "description": {
+        "translate": "enchantment.skyblock.divine_gift"
+    },
+    "effects": {
+        "minecraft:post_attack": [
+            {
+                "enchanted": "attacker",
+                "affected": "victim",
+                "effect": {
+                    "type": "skyblock:divine_gift",
+                    "level": {
+                        "type": "minecraft:linear",
+                        "base": 1.0,
+                        "per_level_above_first": 0.5
+                    }
+                }
+            }
+        ]
+    },
+    "max_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_level": 10,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "primary_items": "#minecraft:enchantable/sword",
+    "slots": [
+        "mainhand"
+    ],
+    "supported_items": "#minecraft:enchantable/sharp_weapon",
+    "weight": 10
+}

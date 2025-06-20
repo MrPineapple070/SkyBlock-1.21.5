@@ -1,0 +1,37 @@
+{
+    "anvil_cost": 1,
+    "description": {
+        "translate": "enchantment.skyblock.combo"
+    },
+    "supported_items": "#minecraft:enchantable/sword",
+    "primary_items": "#minecraft:enchantable/sword",
+    "slots": [
+        "mainhand"
+    ],
+    "weight": 10,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_level": 10,
+    "effects": {
+        "minecraft:post_attack": [
+            {
+                "enchanted": "attacker",
+                "affected": "victim",
+                "effect": {
+                    "type": "skyblock:combo",
+                    "level": {
+                        "type": "minecraft:linear",
+                        "base": 0.2,
+                        "per_level_above_first": 0.1
+                    }
+                }
+            }
+        ]
+    }
+}
